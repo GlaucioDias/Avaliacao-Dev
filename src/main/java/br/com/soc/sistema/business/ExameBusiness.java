@@ -56,8 +56,8 @@ public class ExameBusiness {
 
     public ExameVo buscarExamePor(String codigo) {
 	try {
-	    Integer cod = Integer.parseInt(codigo);
-	    return dao.findByCodigo(cod);
+	    Integer rowId = Integer.parseInt(codigo);
+	    return dao.findByCodigo(rowId);
 	} catch (NumberFormatException e) {
 	    throw new BusinessException(FOI_INFORMADO_CARACTER_NO_LUGAR_DE_UM_NUMERO);
 	}
@@ -85,7 +85,7 @@ public class ExameBusiness {
 
 	    dao.updateExame(exameVo);
 	} catch (Exception e) {
-	    // TODO: handle exception
+	    throw new BusinessException("Não foi possível realizar a atualização do registro");
 	}
 
     }

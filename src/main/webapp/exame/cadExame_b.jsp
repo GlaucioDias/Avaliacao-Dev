@@ -62,7 +62,7 @@
 <%-- 								</s:url>  --%>
 								
 							<a href="#" class="btn btn-danger" data-bs-toggle="modal"
-								data-bs-target="#confirmarExclusao" onclick="setDeleteUrl('${rowid}')"> <s:text
+								data-bs-target="#confirmarExclusao" onclick="excluirRegistro('${rowid}')"> <s:text
 										name="label.excluir" />
 							</a></td>
 						</tr>
@@ -116,8 +116,7 @@
 	<script src="webjars/bootstrap/5.1.3/js/bootstrap.bundle.min.js"></script>
 	
 	<script>
-		function setDeleteUrl(rowid) {
-			console.log('jlkdsjfds')
+		function excluirRegistro(rowid) {
 			var deleteLink  = document.getElementById("excluirBtn");
 			deleteLink.href = "excluirExames.action?exameVo.rowid=" + rowid;
 		}

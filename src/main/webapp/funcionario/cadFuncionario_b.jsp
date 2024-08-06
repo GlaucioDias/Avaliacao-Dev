@@ -16,7 +16,7 @@
 	<div class="container">
 		<div class="row mt-5 mb-2">
 			<div class="col-sm p-0">
-				 <s:form action="">
+				 <s:form action="/filtrarFuncionarios.action">
 					<div class="input-group">
 						<span class="input-group-text"> <strong><s:text
 									name="label.buscar.por" /></strong>
@@ -52,15 +52,19 @@
 							<td>${nome}</td>
 							<td class="text-end"><s:url action="editarFuncionarios"
 									var="editar">
-									<s:param name="exameVo.rowid" value="rowid"></s:param>
-								</s:url> <a href="${editar}" class="btn btn-warning text-white"> <s:text
-										name="label.editar" />
-							</a> <s:url action="excluirExames" var="excluir">
-									<s:param name="exameVo.rowid" value="rowid"></s:param>
-								</s:url> <a href="#" class="btn btn-danger" data-bs-toggle="modal"
-								data-bs-target="#confirmarExclusao"> <s:text
-										name="label.excluir" />
-							</a></td>
+									<s:param name="funcionarioVo.rowid" value="rowid"></s:param>
+								</s:url> 
+								<a href="${editar}" class="btn btn-warning text-white"> 
+									<s:text name="label.editar" />
+								</a> 
+<%-- 							<s:url action="excluirFuncionarios" var="excluir"> --%>
+<%-- 									<s:param name="funcionarioVo.rowid" value="rowid"></s:param> --%>
+<%-- 								</s:url>  --%>
+								<a href="#" class="btn btn-danger" data-bs-toggle="modal"
+									data-bs-target="#confirmarExclusao" onclick="excluirRegistro('${rowid}')"> 
+									<s:text	name="label.excluir" />
+								</a>
+							</td>
 						</tr>
 					</s:iterator>
 				</tbody>
@@ -101,14 +105,20 @@
 				<div class="modal-footer">
 					<a class="btn btn-secondary" data-bs-dismiss="modal"
 						aria-label="Close"> <s:text name="label.nao" />
-					</a> <a href="${excluir}" class="btn btn-primary" style="width: 75px;">
+					</a> <a id="btnExcluir" class="btn btn-primary" style="width: 75px;">
 						<s:text name="label.sim" />
 					</a>
 				</div>
 			</div>
 		</div>
 	</div>
-
+	
+	<script>
+		function excluirRegistro(rowid) {
+			var deleteLink  = document.getElementById("btnExcluir");
+			deleteLink.href = "excluirFuncionarios.action?funcionarioVo.rowid=" + rowid;
+		}
+	</script>
 	<script src="webjars/bootstrap/5.1.3/js/bootstrap.bundle.min.js"></script>
 </body>
 </html>

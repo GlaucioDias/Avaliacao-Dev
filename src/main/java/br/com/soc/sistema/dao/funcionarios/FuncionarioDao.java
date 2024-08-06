@@ -73,4 +73,59 @@ public class FuncionarioDao extends Dao {
 	}
 	return null;
     }
+
+    public void updateFuncionario(FuncionarioVo funcionarioVo) {
+	StringBuilder query = new StringBuilder("UPDATE funcionario ")
+		.append("SET nm_funcionario = ? ")
+		.append("WHERE rowid = ?");
+	int i = 1;
+	try(Connection con = getConexao();
+		PreparedStatement ps = con.prepareStatement(query.toString())) {
+	    
+	    ps.setString(i++, funcionarioVo.getNome());
+	    ps.setString(i, funcionarioVo.getRowid());
+	    ps.executeUpdate();
+	} catch (SQLException e) {
+	    e.printStackTrace();
+	}
+    }
+
+    public void deleteByCodigo(Integer codigo) {
+	StringBuilder query = new StringBuilder("DELETE FROM funcionario ")
+		.append("WHERE rowid = ?");
+	try(Connection con = getConexao();
+		PreparedStatement ps = con.prepareStatement(query.toString())) {
+	    	int i = 1;
+	    	ps.setInt(i, codigo);
+	    	ps.executeUpdate();
+	} catch (SQLException e) {
+	    e.printStackTrace();
+	}
+    }
+
+    public List<FuncionarioVo> findAllByNome(String nome) {
+	StringBuilder query = new StringBuilder("SELECT rowid id, nm_funcionario nome FROM funcionario ")
+		.append("WHERE lower(nm_funcionario) like lower(?) ");
+	try(Connection con = getConexao();
+		PreparedStatement ps = con.prepareStatement(query.toString())) {
+	    int i = 1;
+	    ps.setString(i, "%" + nome + "%");
+	    try(ResultSet rs = ps.executeQuery()) {
+		FuncionarioVo vo = null;
+		List<FuncionarioVo> funcionarios = new ArrayList<>();
+		
+		while(rs.next()) {
+		    vo = new FuncionarioVo();
+		    vo.setRowid(rs.getString("id"));
+		    vo.setNome(rs.getString("nome"));
+		    
+		    funcionarios.add(vo);
+		}
+		return funcionarios;
+	    }
+	} catch (SQLException e) {
+	    e.printStackTrace();
+	}
+	return Collections.emptyList();
+    }
 }

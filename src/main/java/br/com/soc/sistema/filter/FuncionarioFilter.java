@@ -1,9 +1,9 @@
 package br.com.soc.sistema.filter;
 
-import br.com.soc.sistema.infra.OpcoesComboBuscarExames;
+import br.com.soc.sistema.infra.OpcoesComboBuscar;
 
 public class FuncionarioFilter {
-	private OpcoesComboBuscarExames opcoesCombo;
+	private OpcoesComboBuscar opcoesCombo;
 	private String valorBusca;
 
 	public String getValorBusca() {
@@ -15,12 +15,12 @@ public class FuncionarioFilter {
 		return this;
 	}
 
-	public OpcoesComboBuscarExames getOpcoesCombo() {
+	public OpcoesComboBuscar getOpcoesCombo() {
 		return opcoesCombo;
 	}
 
 	public FuncionarioFilter setOpcoesCombo(String codigo) {
-		this.opcoesCombo = OpcoesComboBuscarExames.buscarPor(codigo);
+		this.opcoesCombo = OpcoesComboBuscar.buscarPor(codigo);
 		return this;
 	}	
 	

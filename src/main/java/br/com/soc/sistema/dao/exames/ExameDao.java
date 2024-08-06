@@ -126,20 +126,19 @@ public class ExameDao extends Dao {
 
     public void updateExame(ExameVo exameVo) {
 	StringBuilder query = new StringBuilder("UPDATE exame ").append("SET nm_exame = ? ").append("WHERE rowid = ?");
-
+	int i = 1;
 	try (Connection con = getConexao(); PreparedStatement ps = con.prepareStatement(query.toString())) {
 
-	    ps.setString(1, exameVo.getNome());
-	    ps.setString(2, exameVo.getRowid());
+	    ps.setString(i++, exameVo.getNome());
+	    ps.setString(i, exameVo.getRowid());
 	    ps.executeUpdate();
-	} catch (Exception e) {
+	} catch (SQLException e) {
 	    e.printStackTrace();
 	}
     }
 
     public void deleteByCodigo(Integer codigo) {
 	StringBuilder query = new StringBuilder("DELETE FROM exame ").append("WHERE rowid = (?)");
-	;
 
 	try (Connection con = getConexao(); PreparedStatement ps = con.prepareStatement(query.toString())) {
 

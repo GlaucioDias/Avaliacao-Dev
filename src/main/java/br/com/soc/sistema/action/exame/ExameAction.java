@@ -7,7 +7,7 @@ import java.util.List;
 import br.com.soc.sistema.business.ExameBusiness;
 import br.com.soc.sistema.filter.ExameFilter;
 import br.com.soc.sistema.infra.Action;
-import br.com.soc.sistema.infra.OpcoesComboBuscarExames;
+import br.com.soc.sistema.infra.OpcoesComboBuscar;
 import br.com.soc.sistema.vo.ExameVo;
 
 public class ExameAction extends Action {
@@ -69,8 +69,8 @@ public class ExameAction extends Action {
 	return REDIRECT;
     }
 
-    public List<OpcoesComboBuscarExames> getListaOpcoesCombo() {
-	return Arrays.asList(OpcoesComboBuscarExames.values());
+    public List<OpcoesComboBuscar> getListaOpcoesCombo() {
+	return Arrays.asList(OpcoesComboBuscar.values());
     }
 
     public List<ExameVo> getExames() {

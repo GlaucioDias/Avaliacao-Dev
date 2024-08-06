@@ -6,15 +6,16 @@ import java.util.List;
 
 import br.com.soc.sistema.business.FuncionarioBusiness;
 import br.com.soc.sistema.filter.ExameFilter;
+import br.com.soc.sistema.filter.FuncionarioFilter;
 import br.com.soc.sistema.infra.Action;
-import br.com.soc.sistema.infra.OpcoesComboBuscarExames;
+import br.com.soc.sistema.infra.OpcoesComboBuscar;
 import br.com.soc.sistema.vo.FuncionarioVo;
 
 public class FuncionarioAction extends Action {
     private static final long serialVersionUID = -719544693129321127L;
     private List<FuncionarioVo> funcionarios = new ArrayList<>();
     private FuncionarioBusiness business = new FuncionarioBusiness();
-    private ExameFilter filtrar = new ExameFilter();
+    private FuncionarioFilter filtrar = new FuncionarioFilter();
     private FuncionarioVo funcionarioVo = new FuncionarioVo();
 
     public String todos() {
@@ -33,10 +34,10 @@ public class FuncionarioAction extends Action {
     }
     
     public String atualizar() {
-//	@Override
-//	validate() {
-//	    
-//	}
+	if(funcionarioVo.getNome() == null) {
+	    return ALTERAR;
+	}
+	business.atualizarFuncionario(funcionarioVo);
 	return REDIRECT;
     }
     
@@ -48,25 +49,37 @@ public class FuncionarioAction extends Action {
 	funcionarioVo = business.buscarFuncionarioPor(funcionarioVo.getRowid());
 	return ALTERAR;
     }
+    
+    public String excluir() {
+	if(funcionarioVo.getRowid() == null) {
+	    return REDIRECT;
+	}
+	
+	business.excluirFuncionario(funcionarioVo);
+	
+	return REDIRECT;
+    }
 
     public String filtrar() {
 	if (filtrar.isNullOpcoesCombo())
 	    return REDIRECT;
 
 //   	exames = business.filtrarExames(filtrar);
+//	funcionarios = business.filtrarFuncionarios(filtrar);
+	funcionarios = business.filtrarFuncionarios(filtrar);
 
 	return SUCCESS;
     }
 
-    public List<OpcoesComboBuscarExames> getListaOpcoesCombo() {
-	return Arrays.asList(OpcoesComboBuscarExames.values());
+    public List<OpcoesComboBuscar> getListaOpcoesCombo() {
+	return Arrays.asList(OpcoesComboBuscar.values());
     }
 
-    public ExameFilter getFiltrar() {
+    public FuncionarioFilter getFiltrar() {
         return filtrar;
     }
 
-    public void setFiltrar(ExameFilter filtrar) {
+    public void setFiltrar(FuncionarioFilter filtrar) {
         this.filtrar = filtrar;
     }
 
